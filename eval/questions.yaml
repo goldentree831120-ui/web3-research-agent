@@ -1,5 +1,5 @@
 # 20 test questions. `accept` lists the tool sets that count as a correct choice
-# (order and repeats ignored; the structured-output "Answer" call is not counted).
+# (order and repeats ignored; the structured-output "answer" call is not counted).
 # `check` is what a correct answer must contain; hand-graded after the run.
 # {wallet} is EVAL_WALLET from .env: a PUBLIC address that has positions on the current Sepolia
 # staking contract. `python -m eval.find_stakers` lists candidates. Never a private key.

@@ -31,7 +31,7 @@ def tool_call(name, args, i="1"):
 
 
 def final(answer="ok", sources=(), confidence="high", refused=False, i="9"):
-    return tool_call("Answer", {"answer": answer, "sources": list(sources), "confidence": confidence, "refused": refused}, i)
+    return tool_call("answer", {"answer": answer, "sources": list(sources), "confidence": confidence, "refused": refused}, i)
 
 
 def sel(sig):

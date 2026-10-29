@@ -13,7 +13,7 @@ python -m agent.agent "What did the security review of my staking contract find?
 python -m eval.run_eval                              # the 20-question evaluation
 ```
 
-Default model: `groq:llama-3.3-70b-versatile` on Groq's free tier (no card; over the limit it
+Default model: `groq:openai/gpt-oss-120b` on Groq's free tier (no card; over the limit it
 returns HTTP 429 instead of charging). Any LangChain provider works by changing `LLM_MODEL` and
 installing its package.
 

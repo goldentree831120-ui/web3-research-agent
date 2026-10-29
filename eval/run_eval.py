@@ -28,7 +28,7 @@ import re
 
 import yaml
 
-from agent.agent import ask, build_agent
+from agent.agent import ANSWER_TOOL, ask, build_agent
 from agent.config import CONFIG
 from agent.toollog import set_log_path
 
@@ -83,7 +83,7 @@ def run(fake: bool, only: set[str] | None, pause: float, budget: int):
             r, err = None, f"{type(e).__name__}: {e}"
         secs = round(time.perf_counter() - t0, 2)
         used += r["tokens"] if r else 0
-        called = sorted({c["name"] for c in (r["tool_calls"] if r else []) if c["name"] != "Answer"})
+        called = sorted({c["name"] for c in (r["tool_calls"] if r else []) if c["name"] != ANSWER_TOOL})
         accepted = [sorted(set(a)) for a in q["accept"]]
         should_refuse = bool(q.get("refuse"))
         refused = bool(r and r["answer"].get("refused"))

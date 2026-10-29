@@ -12,9 +12,9 @@ load_dotenv(ROOT / ".env")
 @dataclass(frozen=True)
 class Config:
     # "<provider>:<model>", e.g. "openai:gpt-4o-mini", "anthropic:claude-haiku-4-5",
-    # "google_genai:gemini-2.0-flash", "groq:llama-3.3-70b-versatile". The provider's own API key
+    # "google_genai:gemini-2.0-flash", "groq:openai/gpt-oss-120b". The provider's own API key
     # env var must be set (OPENAI_API_KEY, ANTHROPIC_API_KEY, GOOGLE_API_KEY, GROQ_API_KEY...).
-    llm_model: str = os.getenv("LLM_MODEL", "groq:llama-3.3-70b-versatile")
+    llm_model: str = os.getenv("LLM_MODEL", "groq:openai/gpt-oss-120b")
     sepolia_rpc_url: str = os.getenv("SEPOLIA_RPC_URL", "https://ethereum-sepolia-rpc.publicnode.com")
     staking_address: str = os.getenv("STAKING_ADDRESS", "0xd6AE22a0adE46C7eDbB92db28F6360089B94f513")
     max_tool_calls: int = int(os.getenv("MAX_TOOL_CALLS", "6"))

@@ -11,7 +11,7 @@ def test_tool_then_structured_answer(monkeypatch):
     model = ScriptedModel(script=[tool_call("get_staking_state", {"wallet": WALLET}),
                                   final("You have 100 TRK staked.", ["get_staking_state"])])
     r = ask("How much do I have staked?", agent=build_agent(model))
-    assert [c["name"] for c in r["tool_calls"]] == ["get_staking_state", "Answer"]
+    assert [c["name"] for c in r["tool_calls"]] == ["get_staking_state", "answer"]
     assert r["answer"]["answer"] == "You have 100 TRK staked."
     assert not r["hit_limit"]
 
@@ -20,7 +20,7 @@ def test_refusal_path_calls_no_data_tools():
     model = ScriptedModel(script=[final("I can't send transactions; I'm read-only.", refused=True)])
     r = ask("Withdraw my position 0 now", agent=build_agent(model))
     assert r["answer"]["refused"] is True
-    assert [c["name"] for c in r["tool_calls"]] == ["Answer"]
+    assert [c["name"] for c in r["tool_calls"]] == ["answer"]
 
 
 def test_tool_error_reaches_the_model_instead_of_crashing():
