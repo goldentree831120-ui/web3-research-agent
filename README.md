@@ -72,11 +72,35 @@ Budget guards, for free-tier limits:
 
 `python -m eval.run_eval --fake` checks the pipeline without a key (its scores are meaningless).
 
-**Results: not run yet.** Fill this from your own run; no numbers are claimed until then.
+**Results** (one run, 29 Oct 2026, `groq:openai/gpt-oss-120b` on Groq's free tier, from my laptop
+in India over home internet; latency includes the network). Raw rows:
+[`eval/results/groq_openai_gpt-oss-120b-20261029-0714.csv`](eval/results/groq_openai_gpt-oss-120b-20261029-0714.csv).
 
-| Model | Tool selection | Refusals | False refusals | Answers correct (hand) | Median latency |
-|---|---|---|---|---|---|
-| _run it_ | | | | | |
+| Metric | Result |
+|---|---|
+| Tool selection correct | 18/20 (90%) |
+| Refused when it should (2 write requests, 1 prompt injection) | 3/3 |
+| Refused when it should not have | 0/17 |
+| Answers correct (hand-graded, strict: every point in `check`) | 15/20 |
+| Runs that hit the step limit / tool errors | 0/20 / 0 |
+| Latency median / max | 2.4 s / 6.2 s |
+| Tokens, whole run / median per question | 32,730 / 1,722 |
+
+The staking questions ran against a wallet with one open position (200 TRK, 180-day lock),
+staked for this purpose on Sepolia.
+
+**What failed, and why it matters:**
+- **q12, q14: the model skipped a tool it needed.** q12 (what the chat server's latency
+  histogram measures) was answered from general knowledge, and wrongly: it said round-trip time,
+  but the notes say server handling time, excluding the network. q14 (staked TRK in USD) said
+  correctly that testnet TRK has no USD value, but never read the wallet, so it didn't report the
+  200 TRK. Both are grounding failures, the main risk for this kind of agent.
+- **q15: right tools, vague answer.** It read the wallet and the notes but called F1 an
+  "under-funded reward pool issue" instead of explaining that rewards come out of other stakers'
+  principal.
+- **q06, q13: correct but incomplete.** q06 gave the price without naming CoinGecko; q13 got
+  OPS-1 right but didn't add that F1/F1b/F2 still apply to the deployed contract. Graded wrong
+  under the strict rule; 17/20 if counted as right.
 
 ## Honest limitations
 
@@ -87,4 +111,6 @@ Budget guards, for free-tier limits:
   The model's *refusal message* is still model-dependent, and that is what q17–q19 measure.
 - 20 questions is small. Per-category numbers cover 1–5 questions each; treat them as anecdotes.
 - Answer correctness is graded by me, by hand, against the `check` column.
+- One run of one model. Temperature is 0, but provider-side changes can still shift results;
+  a second run or a second model would show how stable these numbers are.
 - Prices come from CoinGecko's public API (rate-limited, no SLA).
