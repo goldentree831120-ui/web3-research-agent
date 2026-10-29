@@ -7,7 +7,7 @@ described honestly: what it can do, how it is limited, and measured numbers from
 python3 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt                      # includes langchain-groq
 cp .env.example .env                                 # add your key in .env, never in chat
-pytest -q                                            # 34 tests, no key or network needed
+pytest -q                                            # 36 tests, no key or network needed
 python -m eval.find_stakers                          # pick EVAL_WALLET (public address) for .env
 python -m agent.agent "What did the security review of my staking contract find?"
 python -m eval.run_eval                              # the 20-question evaluation
