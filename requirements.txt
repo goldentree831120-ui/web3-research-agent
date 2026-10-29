@@ -1,0 +1,15 @@
+langchain==1.4.4
+langchain-core==1.6.9
+langgraph==1.2.14
+pydantic==2.14.0
+eth-abi==6.0.0
+eth-utils==6.0.0
+eth-hash[pycryptodome]==0.8.0   # keccak backend for eth-utils (not installed by default)
+rank-bm25==0.2.2
+requests>=2.32
+python-dotenv>=1.0
+pyyaml>=6
+pytest>=8
+# LLM provider: Groq (free tier). For another provider, swap this for langchain-openai,
+# langchain-anthropic or langchain-google-genai and change LLM_MODEL in .env.
+langchain-groq==1.1.3
